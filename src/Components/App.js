@@ -1,7 +1,9 @@
 import React from "react";
-
-function App() {
-	return <div className="App"></div>;
-}
-
-export default App;
+import { ThemeProvider } from "styled-components";
+import GlobalStyles from "../Styles/GlobalStyles";
+import Theme from "../Styles/Theme";
+export default () => (
+	<ThemeProvider theme={Theme}>
+		<GlobalStyles />; hello
+	</ThemeProvider>
+);
