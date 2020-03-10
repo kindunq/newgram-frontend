@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Button from "../Components/Button";
-import Input from "../Components/Input";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Button from '../Components/Button';
+import Input from '../Components/Input';
+import useInput from '../Hooks/useInput';
 
 const Wrapper = styled.div`
 	min-height: 80vh;
@@ -12,7 +13,7 @@ const Wrapper = styled.div`
 `;
 
 const Box = styled.div`
-	${(props) => props.theme.whiteBox};
+	${props => props.theme.whiteBox};
 	border-radius: 0px;
 	width: 100%;
 	max-width: 350px;
@@ -42,43 +43,48 @@ const Form = styled(Box)`
 `;
 
 const Link = styled.span`
-	color: ${(props) => props.theme.blueColor};
+	color: ${props => props.theme.blueColor};
 	cursor: pointer;
 `;
 
 export default () => {
-	const [action, setAction] = useState("logIn");
-	console.log(action);
+	const [action, setAction] = useState('logIn');
+	const username = useInput('');
+	const password = useInput('');
+	const firstName = useInput('');
+	const lastName = useInput('');
+	const email = useInput('');
+	console.log(username, password, firstName, lastName, email);
 	return (
 		<Wrapper>
 			<Form>
-				{action === "logIn" ? (
+				{action === 'logIn' ? (
 					<form>
-						<Input placeholder={"Username"} />
-						<Input placeholder={"Password"} />
-						<Button text={"Log in"} />
+						<Input placeholder={'Username'} {...username} />
+						<Input placeholder={'Password'} {...password} type="password" />
+						<Button text={'Log in'} />
 					</form>
 				) : (
 					<form>
-						<Input placeholder={"First name"} />
-						<Input placeholder={"Last name"} />
-						<Input placeholder={"Email"} />
-						<Input placeholder={"Username"} />
-						<Input placeholder={"Password"} />
-						<Button text={"Sign up"} />
+						<Input placeholder={'First name'} {...firstName} />
+						<Input placeholder={'Last name'} {...lastName} />
+						<Input placeholder={'Email'} {...email} type="email" />
+						<Input placeholder={'Username'} {...username} />
+						<Input placeholder={'Password'} {...password} type="password" />
+						<Button text={'Sign up'} />
 					</form>
 				)}
 			</Form>
 			<StateChanger>
-				{action === "logIn" ? (
+				{action === 'logIn' ? (
 					<>
-						Don't have an account?{" "}
-						<Link onClick={() => setAction("signUp")}>Sign up</Link>
+						Don't have an account?{' '}
+						<Link onClick={() => setAction('signUp')}>Sign up</Link>
 					</>
 				) : (
 					<>
-						Have an account?{" "}
-						<Link onClick={() => setAction("logIn")}>Log In</Link>
+						Have an account?{' '}
+						<Link onClick={() => setAction('logIn')}>Log In</Link>
 					</>
 				)}
 			</StateChanger>
