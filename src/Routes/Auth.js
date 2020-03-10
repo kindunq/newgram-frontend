@@ -50,11 +50,13 @@ const Link = styled.span`
 export default () => {
 	const [action, setAction] = useState('logIn');
 	const username = useInput('');
+	const signUsername = useInput('');
 	const password = useInput('');
+	const signPassword = useInput('');
 	const firstName = useInput('');
 	const lastName = useInput('');
 	const email = useInput('');
-	console.log(username, password, firstName, lastName, email);
+
 	return (
 		<Wrapper>
 			<Form>
@@ -69,8 +71,8 @@ export default () => {
 						<Input placeholder={'First name'} {...firstName} />
 						<Input placeholder={'Last name'} {...lastName} />
 						<Input placeholder={'Email'} {...email} type="email" />
-						<Input placeholder={'Username'} {...username} />
-						<Input placeholder={'Password'} {...password} type="password" />
+						<Input placeholder={'Username'} {...signUsername} />
+						<Input placeholder={'Password'} {...signPassword} type="password" />
 						<Button text={'Sign up'} />
 					</form>
 				)}
