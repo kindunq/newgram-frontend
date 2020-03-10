@@ -6,23 +6,23 @@ export default () => {
 	const [action, setAction] = useState('logIn');
 	const username = useInput('');
 	const signUsername = useInput('');
-	const password = useInput('');
-	const signPassword = useInput('');
 	const firstName = useInput('');
 	const lastName = useInput('');
 	const email = useInput('');
 
+	const onLogin = e => {
+		e.preventDefault();
+	};
 	return (
 		<AuthPresenter
 			setAction={setAction}
 			action={action}
 			username={username}
 			signUsername={signUsername}
-			password={password}
-			signPassword={signPassword}
 			firstName={firstName}
 			lastName={lastName}
 			email={email}
+			onLogin={onLogin}
 		/>
 	);
 };
