@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const Footer = styled.footer`
 	display: flex;
@@ -21,48 +21,48 @@ const ListItem = styled.li`
 `;
 
 const Link = styled.a`
-	color: ${(props) => props.theme.darkBlueColor};
+	color: ${props => props.theme.darkBlueColor};
 `;
 
 const Copyright = styled.span`
-	color: ${(props) => props.theme.darkGrayColor};
+	color: ${props => props.theme.darkGrayColor};
 `;
 
 export default () => (
 	<Footer>
 		<List>
 			<ListItem>
-				<Link href="#">about us</Link>
+				<Link href="#none">about us</Link>
 			</ListItem>
 			<ListItem>
-				<Link href="#">support</Link>
+				<Link href="#none">support</Link>
 			</ListItem>
 			<ListItem>
-				<Link href="#">press</Link>
+				<Link href="#none">press</Link>
 			</ListItem>
 			<ListItem>
-				<Link href="#">api</Link>
+				<Link href="#none">api</Link>
 			</ListItem>
 			<ListItem>
-				<Link href="#">jobs</Link>
+				<Link href="#none">jobs</Link>
 			</ListItem>
 			<ListItem>
-				<Link href="#">privacy</Link>
+				<Link href="#none">privacy</Link>
 			</ListItem>
 			<ListItem>
-				<Link href="#">terms</Link>
+				<Link href="#none">terms</Link>
 			</ListItem>
 			<ListItem>
-				<Link href="#">directory</Link>
+				<Link href="#none">directory</Link>
 			</ListItem>
 			<ListItem>
-				<Link href="#">profiles</Link>
+				<Link href="#none">profiles</Link>
 			</ListItem>
 			<ListItem>
-				<Link href="#">hashtags</Link>
+				<Link href="#none">hashtags</Link>
 			</ListItem>
 			<ListItem>
-				<Link href="#">language</Link>
+				<Link href="#none">language</Link>
 			</ListItem>
 		</List>
 		<Copyright>InstaClone {new Date().getFullYear()} &copy;</Copyright>
