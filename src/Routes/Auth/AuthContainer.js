@@ -12,18 +12,11 @@ export default () => {
 	const lastName = useInput('');
 	const email = useInput('');
 
-	const [requestSecret] = useMutation(LOG_IN, {
-		update: (_, { data }) => {
-			const { requestSecret } = data;
-			if (!requestSecret) {
-				toast.error('계정이 없습니다. 계정을 만들어주세요.');
-				setTimeout(() => setAction('signUp'), 3000);
-			}
-		},
+	const [requestSecretMutation] = useMutation(LOG_IN, {
 		variables: { email: email.value }
 	});
 
-	const [createAccount] = useMutation(CREATE_ACCOUNT, {
+	const [createAccountMutation] = useMutation(CREATE_ACCOUNT, {
 		variables: {
 			email: email.value,
 			username: username.value,
@@ -32,11 +25,16 @@ export default () => {
 		}
 	});
 
-	const onSubmit = e => {
+	const onSubmit = async e => {
 		e.preventDefault();
 		if (action === 'logIn') {
 			if (email !== '') {
-				requestSecret();
+				try {
+					await requestSecretMutation();
+				} catch (error) {
+					toast.error(error.message);
+					setTimeout(() => setAction('signUp'), 3000);
+				}
 			} else {
 				toast.error('이메일주소는 필수 입니다.');
 			}
@@ -47,7 +45,17 @@ export default () => {
 				firstName.value !== '' &&
 				lastName.value !== ''
 			) {
-				createAccount();
+				try {
+					const creatAccount = await createAccountMutation();
+					if (!creatAccount) {
+						toast.error('계정 생성에 실패했습니다. 다시 시도하세요.');
+					} else {
+						toast.success('계정이 생성되었습니다. 로그인 해주세요.');
+						setTimeout(() => setAction('logIn'), 3000);
+					}
+				} catch (error) {
+					toast.error(error.message);
+				}
 			} else {
 				toast.error('모든 항목을 기입하세요!');
 			}
