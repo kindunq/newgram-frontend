@@ -9,6 +9,7 @@ export default () => {
 	const [action, setAction] = useState('logIn');
 	const username = useInput('');
 	const firstName = useInput('');
+	const secret = useInput('');
 	const lastName = useInput('');
 	const email = useInput('');
 
@@ -30,9 +31,19 @@ export default () => {
 		if (action === 'logIn') {
 			if (email !== '') {
 				try {
-					await requestSecretMutation();
+					const {
+						data: { requestSecret }
+					} = await requestSecretMutation();
+
+					if (requestSecret) {
+						toast.success('계정으로 전송된 암호문자를 입력해주세요.');
+						setAction('confirm');
+					} else {
+						toast.error('계정이 존재 하지 않습니다. 회원가입을 먼저 해주세요.');
+						setTimeout(() => setAction('signUp'), 3000);
+					}
 				} catch (error) {
-					toast.error(error.message);
+					toast.error('계정이 존재 하지 않습니다. 회원가입을 먼저 해주세요.');
 					setTimeout(() => setAction('signUp'), 3000);
 				}
 			} else {
@@ -46,15 +57,18 @@ export default () => {
 				lastName.value !== ''
 			) {
 				try {
-					const creatAccount = await createAccountMutation();
+					const {
+						data: { creatAccount }
+					} = await createAccountMutation();
+
 					if (!creatAccount) {
-						toast.error('계정 생성에 실패했습니다. 다시 시도하세요.');
+						toast.error('계정생성에 실패했습니다. 다시 시도하세요.');
 					} else {
 						toast.success('계정이 생성되었습니다. 로그인 해주세요.');
 						setTimeout(() => setAction('logIn'), 3000);
 					}
 				} catch (error) {
-					toast.error(error.message);
+					toast.error('계정생성에 실패했습니다. 다시 시도하세요.');
 				}
 			} else {
 				toast.error('모든 항목을 기입하세요!');
@@ -70,6 +84,7 @@ export default () => {
 			firstName={firstName}
 			lastName={lastName}
 			email={email}
+			secret={secret}
 			onSubmit={onSubmit}
 		/>
 	);
