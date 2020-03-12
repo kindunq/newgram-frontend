@@ -17,9 +17,11 @@ const Input = ({
 	required = true,
 	value,
 	onChange,
-	type = 'text'
+	type = 'text',
+	className
 }) => (
 	<Container
+		className={className}
 		placeholder={placeholder}
 		required={required}
 		value={value}
@@ -28,12 +30,12 @@ const Input = ({
 	/>
 );
 
-Input.prototype = {
+Input.propTypes = {
 	placeholder: PropTypes.string.isRequired,
 	required: PropTypes.bool,
 	value: PropTypes.string.isRequired,
 	onChange: PropTypes.func.isRequired,
-	type: PropTypes.string.isRequired
+	type: PropTypes.string
 };
 
 export default Input;
