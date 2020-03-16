@@ -16,7 +16,9 @@ const PostContainer = ({
 }) => {
 	const [isLikedS, setIsLiked] = useState(isLiked);
 	const [likeCountS, setLikeCount] = useState(likeCount);
+
 	const comment = useInput('');
+
 	return (
 		<PostPresenter
 			id={id}

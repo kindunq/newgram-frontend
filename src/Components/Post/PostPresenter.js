@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import TextareaAutosize from 'react-autosize-textarea';
+import Slider from 'react-slick';
 import FatText from '../FatText';
 import Avatar from '../Avatar';
 import { HeartFull, HeartEmpty, Comment } from '../Icons';
+
 const Post = styled.div`
 	${props => props.theme.whiteBox};
 	width: 100%;
@@ -26,18 +28,28 @@ const Location = styled.span`
 	margin-top: 5px;
 	font-size: 12px;
 `;
-
-const Files = styled.div`
-	position: relative;
-	padding-bottom: 100%;
+const Files = styled(Slider)`
+	width: 100%;
+	.slick-prev {
+		left: 25px;
+		z-index: 99;
+	}
+	.slick-next {
+		right: 25px;
+		z-index: 99;
+	}
+	.slick-dots {
+		bottom: 15px;
+	}
+	.slick-dots li.slick-active button:before,
+	.slick-dots li button:before {
+		color: #fff;
+	}
 `;
-
-const File = styled.img`
+const File = styled.div`
 	width: 100%;
 	height: 600px;
-	position: absolute;
-	top: 0;
-	background: url(${props => props.src}) center center;
+	background: url(${props => props.src}) no-repeat center center;
 	background-size: cover;
 `;
 
@@ -78,6 +90,15 @@ const Textarea = styled(TextareaAutosize)`
 		outline: none;
 	}
 `;
+
+const settings = {
+	dots: true,
+	infinite: true,
+	speed: 500,
+	slidesToShow: 1,
+	slidesToScroll: 1,
+	arrows: true
+};
 export default ({
 	user: { username, avatar },
 	location,
@@ -88,6 +109,17 @@ export default ({
 	newComment
 }) => (
 	<Post>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			charSet="UTF-8"
+			href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+		/>
 		<Header>
 			<Avatar size="sm" url={avatar} />
 			<UserColumn>
@@ -95,7 +127,7 @@ export default ({
 				<Location>{location}</Location>
 			</UserColumn>
 		</Header>
-		<Files>
+		<Files {...settings}>
 			{files &&
 				files.map((file, index) => (
 					<File id={file.id} src={file.url} key={index} />
