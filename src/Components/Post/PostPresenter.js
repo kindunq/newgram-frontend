@@ -2,7 +2,7 @@ import React from 'react';
 
 import FatText from '../FatText';
 import Avatar from '../Avatar';
-import { HeartFull, HeartEmpty, Comment } from '../Icons';
+import { HeartFull, HeartEmpty, Comment as CommentIcon } from '../Icons';
 import {
 	Post,
 	Header,
@@ -15,7 +15,9 @@ import {
 	Buttons,
 	Timestamp,
 	Textarea,
-	settings
+	settings,
+	Comments,
+	Comment
 } from './PostStyled';
 
 export default ({
@@ -25,7 +27,11 @@ export default ({
 	isLiked,
 	likeCount,
 	createdAt,
-	newComment
+	newComment,
+	toggleLike,
+	onKeyPress,
+	comments,
+	selfComments
 }) => (
 	<Post>
 		<link
@@ -54,14 +60,37 @@ export default ({
 		</Files>
 		<Meta>
 			<Buttons>
-				<Button>{isLiked ? <HeartFull /> : <HeartEmpty />}</Button>
+				<Button onClick={toggleLike}>
+					{isLiked ? <HeartFull /> : <HeartEmpty />}
+				</Button>
 				<Button>
-					<Comment />
+					<CommentIcon />
 				</Button>
 			</Buttons>
 			<FatText text={likeCount === 1 ? '1 like' : `${likeCount} likes`} />
+			{comments && (
+				<Comments>
+					{comments.map(comment => (
+						<Comment key={comment.id}>
+							<FatText text={comment.user.username} />
+							{comment.text}
+						</Comment>
+					))}
+					{selfComments.map(comment => (
+						<Comment key={comment.id}>
+							<FatText text={comment.user.username} />
+							{comment.text}
+						</Comment>
+					))}
+				</Comments>
+			)}
 			<Timestamp>{createdAt}</Timestamp>
-			<Textarea placeholder={'Add a comment'} {...newComment} />
+			<Textarea
+				placeholder={'Add a comment...'}
+				value={newComment.value}
+				onChange={newComment.onChange}
+				onKeyPress={onKeyPress}
+			/>
 		</Meta>
 	</Post>
 );
