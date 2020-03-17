@@ -7,6 +7,7 @@ export const Post = styled.div`
 	width: 100%;
 	max-width: 600px;
 	margin-bottom: 25px;
+	user-select: none;
 `;
 
 export const Header = styled.header`
@@ -27,7 +28,10 @@ export const Location = styled.span`
 export const Files = styled(Slider)`
 	width: 100%;
 	.slick-slide {
-		outline: none;
+		outline: none !important;
+	}
+	.slick-slide:focus {
+		outline: none !important;
 	}
 	.slick-prev {
 		left: 25px;
@@ -98,3 +102,14 @@ export const settings = {
 	slidesToScroll: 1,
 	arrows: true
 };
+
+export const Comments = styled.ul`
+	margin-top: 10px;
+`;
+
+export const Comment = styled.li`
+	margin-bottom: 7px;
+	span {
+		margin-right: 5px;
+	}
+`;
