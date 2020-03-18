@@ -4,9 +4,8 @@ import PropTypes from 'prop-types';
 import FatText from '../../Components/FatText';
 import Loader from '../../Components/Loader';
 import UserCard from '../../Components/UserCard';
-
+import SquarePost from '../../Components/SquarePost';
 const Wrapper = styled.div`
-	height: 50vh;
 	text-align: center;
 	.emptyBox {
 		line-height: 50vh;
@@ -16,11 +15,15 @@ const Section = styled.div`
 	margin-bottom: 50px;
 	display: grid;
 	grid-gap: 25px;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(4, 200px);
 	grid-template-rows: 160px;
 	grid-auto-rows: 160px;
 `;
-
+const PostSection = styled(Section)`
+	grid-template-columns: repeat(4, 200px);
+	grid-template-rows: 200px;
+	grid-auto-rows: 200px;
+`;
 const SearchPresenter = ({ searchTerm, loading, data }) => {
 	if (searchTerm === undefined) {
 		return (
@@ -54,13 +57,21 @@ const SearchPresenter = ({ searchTerm, loading, data }) => {
 						))
 					)}
 				</Section>
-				<Section>
+				<PostSection>
 					{data.searchPost.length === 0 ? (
 						<FatText text="게시물을 찾을 수 없습니다." />
 					) : (
-						data.searchPost.map(post => null)
+						data.searchPost.map(post => (
+							<SquarePost
+								key={post.id}
+								likeCount={post.likeCount}
+								commentCount={post.commentCount}
+								file={post.files[0]}
+								username={post.user.username}
+							/>
+						))
 					)}
-				</Section>
+				</PostSection>
 			</Wrapper>
 		);
 	}
