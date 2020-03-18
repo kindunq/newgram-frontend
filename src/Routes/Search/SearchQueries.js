@@ -13,6 +13,8 @@ export const SEARCH = gql`
 			username
 			isFollowing
 			isSelf
+			firstName
+			id
 		}
 	}
 `;

@@ -12,7 +12,14 @@ const Wrapper = styled.div`
 		line-height: 50vh;
 	}
 `;
-const Section = styled.div``;
+const Section = styled.div`
+	margin-bottom: 50px;
+	display: grid;
+	grid-gap: 25px;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: 160px;
+	grid-auto-rows: 160px;
+`;
 
 const SearchPresenter = ({ searchTerm, loading, data }) => {
 	if (searchTerm === undefined) {
@@ -32,21 +39,23 @@ const SearchPresenter = ({ searchTerm, loading, data }) => {
 			<Wrapper>
 				<Section>
 					{data.searchUser.length === 0 ? (
-						<FatText text="No Users Found" />
+						<FatText text="검색된 사용자가 없습니다." />
 					) : (
 						data.searchUser.map(user => (
 							<UserCard
 								username={user.username}
 								isFollowing={user.isFollowing}
-								url={user.url}
+								avatar={user.avatar}
 								isSelf={user.isSelf}
+								firstName={user.firstName}
+								key={user.id}
 							/>
 						))
 					)}
 				</Section>
 				<Section>
 					{data.searchPost.length === 0 ? (
-						<FatText text="No Posts Found" />
+						<FatText text="게시물을 찾을 수 없습니다." />
 					) : (
 						data.searchPost.map(post => null)
 					)}
