@@ -67,20 +67,19 @@ export default () => {
 			) {
 				try {
 					const {
-						data: { creatAccount }
+						data: { createAccount }
 					} = await createAccountMutation();
-
-					if (!creatAccount) {
-						toast.error('계정생성에 실패했습니다. 다시 시도하세요.');
+					if (!createAccount) {
+						toast.error('계정을 생성할 수 없습니다.');
 					} else {
-						toast.success('계정이 생성되었습니다. 로그인 해주세요.');
+						toast.success('계정이 생성되었습니다. 로그인해주세요!');
 						setTimeout(() => setAction('logIn'), 3000);
 					}
-				} catch (error) {
-					toast.error('계정생성에 실패했습니다. 다시 시도하세요.');
+				} catch (e) {
+					toast.error(e.message);
 				}
 			} else {
-				toast.error('모든 항목을 기입하세요!');
+				toast.error('모든 항목을 입력해주세요!');
 			}
 		} else if (action === 'confirm') {
 			if (secret.value !== '') {
