@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Avatar from './Avatar';
 import FatText from './FatText';
-import Button from './Button';
 import { Link } from 'react-router-dom';
+import FollowBtn from './FollowBtn';
 
 const Card = styled.div`
 	${props => props.theme.whiteBox}
@@ -12,6 +12,7 @@ const Card = styled.div`
 	flex-direction: column;
 	align-items: center;
 	padding: 20px;
+	height: 190px;
 `;
 const EAvatar = styled(Avatar)`
 	margin-bottom: 15px;
@@ -28,7 +29,7 @@ const SFatText = styled(FatText)`
 	display: block;
 	margin: 5px 0;
 `;
-const UserCard = ({ firstName, username, isFollowing, avatar, isSelf }) => (
+const UserCard = ({ id, firstName, username, isFollowing, avatar, isSelf }) => (
 	<Card>
 		<EAvatar url={avatar} size={'md'} />
 		<ELink to={`/${username}`}>
@@ -36,11 +37,12 @@ const UserCard = ({ firstName, username, isFollowing, avatar, isSelf }) => (
 			<SFatText text={firstName} />
 		</ELink>
 
-		{!isSelf && <Button text={isFollowing ? '팔로우취소' : '팔로우'} />}
+		{!isSelf && <FollowBtn isFollowing={isFollowing} id={id} />}
 	</Card>
 );
 
 UserCard.propTypes = {
+	id: PropTypes.string.isRequired,
 	username: PropTypes.string.isRequired,
 	isFollowing: PropTypes.bool.isRequired,
 	avatar: PropTypes.string.isRequired,

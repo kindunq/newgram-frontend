@@ -49,6 +49,7 @@ const SearchPresenter = ({ searchTerm, loading, data }) => {
 								isSelf={user.isSelf}
 								firstName={user.firstName}
 								key={user.id}
+								id={user.id}
 							/>
 						))
 					)}
