@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import FatText from '../FatText';
 import Avatar from '../Avatar';
 import { HeartFull, HeartEmpty, Comment as CommentIcon } from '../Icons';
@@ -17,7 +17,9 @@ import {
 	Textarea,
 	settings,
 	Comments,
-	Comment
+	Comment,
+	CaptionBox,
+	Caption
 } from './PostStyled';
 
 export default ({
@@ -31,7 +33,8 @@ export default ({
 	toggleLike,
 	onKeyPress,
 	comments,
-	selfComments
+	selfComments,
+	caption
 }) => (
 	<Post>
 		<link
@@ -48,7 +51,9 @@ export default ({
 		<Header>
 			<Avatar size="sm" url={avatar} />
 			<UserColumn>
-				<FatText text={username} />
+				<Link to={`/${username}`}>
+					<FatText text={username} />
+				</Link>
 				<Location>{location}</Location>
 			</UserColumn>
 		</Header>
@@ -68,17 +73,25 @@ export default ({
 				</Button>
 			</Buttons>
 			<FatText text={likeCount === 1 ? '1 like' : `${likeCount} likes`} />
+			<CaptionBox>
+				<FatText text={username} />
+				<Caption>{caption}</Caption>
+			</CaptionBox>
 			{comments && (
 				<Comments>
 					{comments.map(comment => (
 						<Comment key={comment.id}>
-							<FatText text={comment.user.username} />
+							<Link to={`/${username}`}>
+								<FatText text={comment.user.username} />
+							</Link>
 							{comment.text}
 						</Comment>
 					))}
 					{selfComments.map(comment => (
 						<Comment key={comment.id}>
-							<FatText text={comment.user.username} />
+							<Link to={`/${username}`}>
+								<FatText text={comment.user.username} />
+							</Link>
 							{comment.text}
 						</Comment>
 					))}
