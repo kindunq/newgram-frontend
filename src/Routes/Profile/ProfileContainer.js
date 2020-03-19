@@ -11,6 +11,7 @@ export default withRouter(
 		}
 	}) => {
 		const { data, loading } = useQuery(GET_USER, {
+			fetchPolicy: 'cache-and-network',
 			variables: { username }
 		});
 		const [logOut] = useMutation(LOG_OUT);
